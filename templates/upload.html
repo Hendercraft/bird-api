@@ -1,32 +1,49 @@
 <!doctype html>
 <html>
 <head>
-    <title>Upload an Image</title>
+    <title>Upload Images</title>
     <script type="text/javascript">
-        function previewImage() {
-            var file = document.querySelector('input[type=file]').files[0];
-            var reader = new FileReader();
+        function previewImages() {
             var preview = document.getElementById('image-preview');
+            preview.innerHTML = ''; // Clear existing images
 
-            reader.onloadend = function() {
-                preview.src = reader.result;
-            }
+            if (this.files) {
+                var files = Array.from(this.files);
+                files.forEach(file => {
+                    if (!file.type.match('image.*')) {
+                        return; // Skip files that are not images
+                    }
 
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.height = '100px';
+                        img.style.marginRight = '10px';
+                        preview.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+
+                document.getElementById('preview-container').style.display = files.length > 0 ? 'block' : 'none';
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('file-input').addEventListener("change", previewImages);
+        });
     </script>
 </head>
 <body>
-    <h1>Upload an Image</h1>
+    <h1>Upload Images</h1>
     <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file" onchange="previewImage()">
+        <input type="file" name="files" id="file-input" multiple>
         <input type="submit" value="Upload">
     </form>
-    <h2>Image Preview</h2>
-    <img id="image-preview" src="" height="200px" />
+    <div id="preview-container" style="display:none;">
+        <h2>Image Preview</h2>
+        <div id="image-preview"></div>
+    </div>
 </body>
 </html>
