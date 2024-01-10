@@ -43,6 +43,6 @@ COPY . .
 RUN poetry install
 
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 5000
 
-ENTRYPOINT [ "poetry","run","flask","run" ]
+ENTRYPOINT [ "poetry","run","flask","run","--host=0.0.0.0","--port=5000" ]
