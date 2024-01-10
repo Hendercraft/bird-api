@@ -64,8 +64,6 @@ def upload_file():
                     'label': 'Other',
                     'probability': round(sum_small_probs * 100, 3)
                 })
-
             results.append(image_result)
-
         return jsonify(results)
     return render_template('upload.html')

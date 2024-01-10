@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bird-api"
 version = "0.1.0"
-description = "Api for a efficiant-net trained on the 525 birds dataset"
+description = "API based on a fine-tuned EfficientNet Model trained on the 525 birds dataset"
 authors = ["Guillaume Ruff <guiguiruff@gmail.com>", "Benjamin Crouts De Paille <benjamin.crouts-de-paille@utbm.fr>"]
 license = "mit"
 readme = "README.md"
